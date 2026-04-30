@@ -15,30 +15,9 @@ templates/       → View: interface HTML renderizada pelo Flask
 Fluxo de uma requisição
 Usuário → Controller → Service → Repository → Model
                                                ↓
-Usuário ← Controller ← Service ← Repository ←
-Estrutura de Pastas
-Arquitetura-MVC/
-├── app.py                            # Inicialização do Flask
-├── controllers/
-│   ├── __init__.py
-│   └── livro_controller.py           # Rotas HTTP (Blueprint)
-├── services/
-│   ├── __init__.py
-│   └── livro_service.py              # Regras de negócio
-├── repositories/
-│   ├── __init__.py
-│   └── livro_repository.py           # Acesso aos dados
-├── models/
-│   ├── __init__.py
-│   └── livro_model.py                # Classe Livro
-├── templates/
-│   └── index.html                    # Interface HTML com Bootstrap
-├── features/
-│   ├── filtrar_livros.feature        # Cenários BDD em português
-│   └── steps/
-│       └── filtrar_steps.py          # Implementação dos steps Behave
-├── test.py                           # Testes unitários
-└── README.md
+
+
+
 Funcionalidades
 Filtrar livros por título, autor e intervalo de ano
 Adicionar novos livros à lista
