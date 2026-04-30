@@ -1,8 +1,10 @@
-from flask import Blueprint, render_template, request
-from models.livro_model import LivroModel
+from flask import Blueprint, render_template, request, redirect, url_for
+from repositories.livro_repository import LivroRepository
+from services.livro_service import LivroService
 
 livro_bp = Blueprint('livro', __name__)
-model = LivroModel()
+repository = LivroRepository()
+service = LivroService(repository)
 
 @livro_bp.route('/', methods=['GET'])
 def index():
@@ -14,5 +16,19 @@ def index():
     except (TypeError, ValueError):
         ano_min, ano_max = None, None
 
-    livros = model.filtrar(titulo, autor, ano_min, ano_max)
-    return render_template('index.html', livros=livros)
+    livros = service.filtrar(titulo, autor, ano_min, ano_max)
+    return render_template('index.html', livros=[l.to_dict() for l in livros])
+
+@livro_bp.route('/adicionar', methods=['POST'])
+def adicionar():
+    titulo = request.form.get('titulo', '')
+    autor = request.form.get('autor', '')
+    try:
+        ano = int(request.form.get('ano'))
+    except (TypeError, ValueError):
+        ano = None
+    try:
+        service.adicionar(titulo, autor, ano)
+    except ValueError:
+        pass
+    return redirect(url_for('livro.index'))
