@@ -1,110 +1,96 @@
-# Sistema de Livraria — Arquitetura MVC
+Livraria — Arquitetura Multicamada
 
-Este projeto é um MVP (Minimum Viable Product) de um sistema de busca de livros, refatorado para seguir a arquitetura MVC (Model-View-Controller) e validado utilizando a metodologia BDD (Behavior-Driven Development).
+Aplicação web para busca e cadastro de livros, desenvolvida em Python com Flask, seguindo uma arquitetura multicamada com 4 camadas bem definidas.
 
----
+Arquitetura
 
-## Descrição
+O projeto segue uma Arquitetura Multicamada, onde cada camada tem uma responsabilidade única e se comunica apenas com a camada adjacente.
 
-A aplicação permite realizar buscas de livros com base em diferentes critérios, garantindo organização do código através do padrão MVC e confiabilidade por meio de testes BDD.
+controllers/     → Camada 1: recebe requisições HTTP e retorna respostas
+services/        → Camada 2: contém as regras de negócio
+repositories/    → Camada 3: acesso e manipulação dos dados
+models/          → Camada 4: define a estrutura dos dados
 
----
-
-## Tecnologias Utilizadas
-
-* Linguagem: Python 3.x
-* Framework Web: Flask (Controller e Rotas)
-* Template Engine: Jinja2 / HTML5 (View)
-* Estilização: Bootstrap 5
-* Testes BDD: Behave (Gherkin)
-
----
-
-## Arquitetura MVC
-
-O projeto foi estruturado para separar responsabilidades de forma clara:
-
-### Model (models.py)
-
-Responsável pelos dados e regras de negócio:
-
-* Classe LivroModel
-* Armazenamento de dados
-* Lógica de filtragem
-
-### View (templates/index.html)
-
-Responsável pela interface do usuário:
-
-* Formulário de busca
-* Exibição dos resultados
-* HTML com Bootstrap
-
-### Controller (app.py)
-
-Responsável pela comunicação entre Model e View:
-
-* Recebe requisições HTTP
-* Processa dados
-* Renderiza a interface
-
----
-
-## Metodologia BDD
-
-O comportamento do sistema foi definido e validado utilizando arquivos `.feature` escritos em Gherkin.
-
-### Cenários testados
-
-1. Filtragem por título (busca parcial)
-2. Filtragem por autor
-3. Filtragem por intervalo de anos de publicação
-
----
-
-## Como Executar o Projeto
-
-### 1. Clonar o repositório
-
-```bash
-git clone https://github.com/Nicleo1112/Arquitetura-MVC.git
+templates/       → View: interface HTML renderizada pelo Flask
+Fluxo de uma requisição
+Usuário → Controller → Service → Repository → Model
+                                               ↓
+Usuário ← Controller ← Service ← Repository ←
+Estrutura de Pastas
+Arquitetura-MVC/
+├── app.py                            # Inicialização do Flask
+├── controllers/
+│   ├── __init__.py
+│   └── livro_controller.py           # Rotas HTTP (Blueprint)
+├── services/
+│   ├── __init__.py
+│   └── livro_service.py              # Regras de negócio
+├── repositories/
+│   ├── __init__.py
+│   └── livro_repository.py           # Acesso aos dados
+├── models/
+│   ├── __init__.py
+│   └── livro_model.py                # Classe Livro
+├── templates/
+│   └── index.html                    # Interface HTML com Bootstrap
+├── features/
+│   ├── filtrar_livros.feature        # Cenários BDD em português
+│   └── steps/
+│       └── filtrar_steps.py          # Implementação dos steps Behave
+├── test.py                           # Testes unitários
+└── README.md
+Funcionalidades
+Filtrar livros por título, autor e intervalo de ano
+Adicionar novos livros à lista
+Validação de dados na camada de serviço
+Testes unitários com test.py
+Testes BDD com Behave
+Como executar
+Pré-requisitos
+Python 3.8+
+pip
+Instalação
+# Clone o repositório
+git clone https://github.com/seu-usuario/Arquitetura-MVC.git
 cd Arquitetura-MVC
-```
 
-### 2. Configurar ambiente virtual e instalar dependências
-
-```bash
+# Crie e ative o ambiente virtual
 python -m venv .venv
+.venv\Scripts\activate        # Windows
+source .venv/bin/activate     # Linux/Mac
 
-# Ativar no Windows
-.venv\Scripts\activate
-
-# Instalar dependências
+# Instale as dependências
 pip install flask behave
-```
-
-### 3. Executar a aplicação
-
-```bash
+Rodando a aplicação
 python app.py
-```
 
-Acesse no navegador:
-http://127.0.0.1:5000
+Acesse em: http://127.0.0.1:5000
 
-### 4. Executar os testes BDD
-
-```bash
+Testes
+Testes unitários
+python test.py
+Testes BDD (Behave)
 behave
-```
+Descrição das Camadas
+Camada 1 — Controller (controllers/livro_controller.py)
 
----
+Recebe as requisições HTTP, extrai os parâmetros e delega para o Service. Não contém regras de negócio.
 
+Camada 2 — Service (services/livro_service.py)
 
-## Atualização no GitHub
+Contém as regras de negócio, como validação de campos obrigatórios e intervalo de ano válido. Orquestra as operações entre Controller e Repository.
 
-```bash
-git add README.md
-git commit -m "docs: readme padronizado"
-git push
-```
+Camada 3 — Repository (repositories/livro_repository.py)
+
+Responsável pelo acesso aos dados. Armazena a lista de livros em memória e oferece métodos para listar e adicionar.
+
+Camada 4 — Model (models/livro_model.py)
+
+Define a estrutura do objeto Livro com seus atributos (titulo, autor, ano) e o método to_dict() para serialização.
+
+Tecnologias
+Tecnologia	Uso
+Python	Linguagem principal
+Flask	Framework web
+Behave	Testes BDD
+Bootstrap 5	Estilização da interface
