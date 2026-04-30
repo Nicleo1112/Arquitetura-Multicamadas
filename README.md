@@ -46,11 +46,7 @@ python app.py
 
 Acesse em: http://127.0.0.1:5000
 
-Testes
-Testes unitários
-python test.py
-Testes BDD (Behave)
-behave
+
 Descrição das Camadas
 Camada 1 — Controller (controllers/livro_controller.py)
 
@@ -72,5 +68,4 @@ Tecnologias
 Tecnologia	Uso
 Python	Linguagem principal
 Flask	Framework web
-Behave	Testes BDD
 Bootstrap 5	Estilização da interface
