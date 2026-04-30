@@ -1,5 +1,5 @@
-##Livraria — Arquitetura Multicamada
-###NOVA FEATURE ----> Adicionar novos livros a lista
+# Livraria — Arquitetura Multicamada
+# NOVA FEATURE ----> Adicionar novos livros a lista
 
 Aplicação web para busca e cadastro de livros, desenvolvida em Python com Flask, seguindo uma arquitetura multicamada com 4 camadas bem definidas.
 
