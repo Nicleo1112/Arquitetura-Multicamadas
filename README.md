@@ -8,8 +8,11 @@ Arquitetura
 O projeto segue uma Arquitetura Multicamada, onde cada camada tem uma responsabilidade única e se comunica apenas com a camada adjacente.
 
 controllers/     → Camada 1: recebe requisições HTTP e retorna respostas
+
 services/        → Camada 2: contém as regras de negócio
+
 repositories/    → Camada 3: acesso e manipulação dos dados
+
 models/          → Camada 4: define a estrutura dos dados
 
 templates/       → View: interface HTML renderizada pelo Flask
